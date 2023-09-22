@@ -5,7 +5,10 @@ exports.home = async(req, res) => {
         description: "The Best Notes App"
     }
 
-    res.render("index", locals);
+    res.render("index", {
+        locals,
+        layout: '../views/layouts/front-page'
+    });
 }
 
 // get aboutpage
