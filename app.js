@@ -21,6 +21,11 @@ app.set('view engine', 'ejs');
 // route
 app.use("/", require("./server/routes/index"));
 
+// 404 handler
+app.get("*", (req, res) => {
+    res.status(404).render('404');
+});
+
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
 })
