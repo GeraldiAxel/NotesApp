@@ -19,13 +19,7 @@ app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 // route
-app.get("/", (req, res) => {
-    const locals = {
-        title: "Notes App",
-        description: "The Best Notes App"
-    }
-    res.render("index", locals);
-})
+app.use("/", require("./server/routes/index"));
 
 app.listen(port, ()=>{
     console.log(`Server is running on port ${port}`);
