@@ -10,5 +10,7 @@ router.put("/dashboard/item/:id", checkLogIn, dashboardController.dashboardUpdat
 router.delete("/dashboard/item-delete/:id", checkLogIn, dashboardController.dashboardDeleteNote);
 router.get("/dashboard/create", checkLogIn, dashboardController.dashboardCreateNote);
 router.post("/dashboard/create", checkLogIn, dashboardController.dashboardAddNote);
+router.post("/dashboard/search", checkLogIn, dashboardController.dashboardSearchSubmit);
+router.get("/dashboard/search", checkLogIn, dashboardController.dashboardSearch);
 
 module.exports = router;

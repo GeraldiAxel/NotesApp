@@ -108,3 +108,36 @@ exports.dashboardAddNote = async (req, res) => {
         console.log(error);
     }
 }
+
+// get search notes
+exports.dashboardSearch = async (req, res) => {
+    try {
+        res.render('dashboard/search', {
+            searchResults: '',
+            layout: '../views/layout/dashboard'
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// post search notes
+exports.dashboardSearchSubmit = async (req, res) => {
+    try {
+        let searchTerm = req.body.searchTerm;
+        const searchTrimmed = searchTerm.replace(/^[a-zA-Z0-9]/g, "");
+        const searchResults = await Note.find({
+            $or: [
+                {title: {$regex: new RegExp(searchTrimmed, 'i')}},
+                {body: {$regex: new RegExp(searchTrimmed, 'i')}},
+            ]
+        }).where({user: req.user.id});
+
+        res.render('dashboard/search', {
+            searchResults,
+            layout: '../views/layouts/dashboard'
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
