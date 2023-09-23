@@ -10,6 +10,18 @@ const MongoStore = require('connect-mongo');
 const app = express();
 const port = 3000 || process.env.PORT;
 
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGODB_URI
+    })
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // middleware
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -26,6 +38,7 @@ app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 // route
+app.use("/", require("./server/routes/auth"));
 app.use("/", require("./server/routes/index"));
 app.use("/", require("./server/routes/dashboard"));
 
