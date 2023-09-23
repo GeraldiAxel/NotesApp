@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const connectDB = require('./server/config/db');
 
 const app = express();
 const port = 3000 || process.env.PORT;
@@ -9,6 +10,9 @@ const port = 3000 || process.env.PORT;
 // middleware
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+
+// connect to DB
+connectDB();
 
 // static files
 app.use(express.static("public"));
