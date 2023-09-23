@@ -17,7 +17,7 @@ exports.dashboard = async (req, res) => {
         const notes = await Note.aggregate([
             { 
                 $sort: { 
-                    createdAt: -1 
+                    updatedDate: -1 
                 } 
             },
             { 
@@ -72,7 +72,7 @@ exports.dashboardUpdateNote = async (req, res) => {
     try {
         await Note.findOneAndUpdate(
             {_id: req.params.id},
-            {title: req.body.title, body: req.body.body}
+            {title: req.body.title, body: req.body.body, updatedDate: Date.now()}
             ).where( { user: req.user.id});
 
             res.redirect('/dashboard');
