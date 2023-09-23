@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // get dashboard
 exports.dashboard = async (req, res) => {
 
-    let perPage = 3;
+    let perPage = 12;
     let page = req.query.page || 1;
   
     const locals = {
