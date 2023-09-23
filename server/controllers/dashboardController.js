@@ -1,3 +1,6 @@
+const Note = require('../models/Notes');
+const mongoose = require('mongoose');
+
 // get dashboard
 exports.dashboard = async(req, res) => {
     const locals = {
@@ -5,8 +8,16 @@ exports.dashboard = async(req, res) => {
         description: "The Best Notes App"
     }
 
-    res.render("dashboard/index", {
-        locals,
-        layout: '../views/layouts/dashboard'
-    });
+    try {
+        const notes = await Note.find({});
+        res.render('dashboard/index', {
+            userName: req.user.displayName,
+            locals,
+            notes,
+            layout: '../views/layouts/dashboard'
+        })
+        console.log(notes);
+    } catch (error) {
+        console.log(error);
+    }
 }
