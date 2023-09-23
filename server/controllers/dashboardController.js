@@ -80,3 +80,13 @@ exports.dashboardUpdateNote = async (req, res) => {
         console.log(error);
     }
 }
+
+// delete note
+exports.dashboardDeleteNote = async (req, res) => {
+    try {
+        await Note.deleteOne({_id: req.params.id}).where({user:req.user.id});
+        res.redirect('/dashboard');
+    } catch (error) {
+        console.log(error);
+    }
+}

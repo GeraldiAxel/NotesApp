@@ -7,5 +7,6 @@ const dashboardController = require('../controllers/dashboardController');
 router.get("/dashboard", checkLogIn, dashboardController.dashboard);
 router.get("/dashboard/item/:id", checkLogIn, dashboardController.dashboardViewNote);
 router.put("/dashboard/item/:id", checkLogIn, dashboardController.dashboardUpdateNote);
+router.delete("/dashboard/item-delete/:id", checkLogIn, dashboardController.dashboardDeleteNote);
 
 module.exports = router;
