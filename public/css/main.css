@@ -70,6 +70,10 @@ h1, h2, h3, h4, h5, h6{
     --bs-pagination-active-border-color: var(--bs-primary-rgb);
 }
 
+.breadcrumb-item + .breadcrumb-item::before {
+    color: #fff;
+}
+
 /* HOME */
 @media (min-width: 1200px) {
     .home {
@@ -96,3 +100,30 @@ h1, h2, h3, h4, h5, h6{
     bottom: -30px;
 }
 
+.group-card {
+    /* background-color: #F2AA4C; */
+    background-color: transparent;
+    border: none;
+}
+
+.group-card .header {
+    background-color: #ffbb08;
+    border-radius: 4px 15px 0 0;
+    height: 30px;
+    padding: 1rem;
+    width: 40%;
+}
+
+.group-card .body {
+    background-color: #ffda6e;
+    border-radius: 0px 15px 0 0;
+    height: 190px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.group-link {
+    padding: 0;
+}

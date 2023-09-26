@@ -1,5 +1,6 @@
 
 const Note = require('../models/Notes');
+const Group = require('../models/Groups');
 const mongoose = require('mongoose');
 
 // get dashboard
@@ -35,6 +36,8 @@ exports.dashboard = async (req, res) => {
         .skip(perPage * page - perPage)
         .limit(perPage)
         .exec();
+
+        const groups = await Group.find({});
   
         const count = await Note.count();
     
@@ -42,6 +45,7 @@ exports.dashboard = async (req, res) => {
             userName: req.user.firstName,
             locals,
             notes,
+            groups,
             layout: "../views/layouts/dashboard",
             current: page,
             pages: Math.ceil(count / perPage)
@@ -137,6 +141,24 @@ exports.dashboardSearchSubmit = async (req, res) => {
             searchResults,
             layout: '../views/layouts/dashboard'
         });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//create group
+exports.dashboardCreateGroup = async (req, res) => {
+    res.render('dashboard/createGroup', {
+        layout: '../views/layouts/dashboard'
+    });
+}
+
+//add group
+exports.dashboardAddGroup = async (req, res) => {
+    try {
+        req.body.user = req.user.id;
+        await Group.create(req.body);
+        res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
     }

@@ -12,5 +12,7 @@ router.get("/dashboard/create", checkLogIn, dashboardController.dashboardCreateN
 router.post("/dashboard/create", checkLogIn, dashboardController.dashboardAddNote);
 router.post("/dashboard/search", checkLogIn, dashboardController.dashboardSearchSubmit);
 router.get("/dashboard/search", checkLogIn, dashboardController.dashboardSearch);
+router.get("/dashboard/createGroup", checkLogIn, dashboardController.dashboardCreateGroup);
+router.post("/dashboard/createGroup", checkLogIn, dashboardController.dashboardAddGroup);
 
 module.exports = router;

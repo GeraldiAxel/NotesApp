@@ -4,20 +4,41 @@
             <h1>Hey, <%= userName %></h1>
         </div>
         <div class="col text-end">
+            <a href="dashboard/createGroup" class="btn btn-outline-primary">+ New Group</a>
             <a href="dashboard/create" class="btn btn-primary">+ New Note</a>
         </div>
     </div>
-
+    <!-- Group -->
     <div class="row">
-        <% if(notes.length > 0) { for(let i = 0 ; i<notes.length ; i++){ %>
+        <h3>Folders</h3>
+        <% if(groups.length > 0) { for(let i = 0 ; i<groups.length ; i++){ %>
             <div class="col-sm-3 mb-4">
-                <div class="card border-primary" style="min-height: 210px;">
-                    <a href="/dashboard/item/<%= notes[i]._id %>" class="card-body text-decoration-none">
-                        <h5 class="card-title"><%= notes[i].title %></h5>
-                        <p class="card-text"><%= notes[i].body %></p>
+                <div class="card border-primary group-card" style="min-height: 210px;">
+                    <a href="/dashboard/item/<%= groups[i]._id %>" class="card-body text-decoration-none group-link">
+                        <div class="header">
+                        </div>
+                        <div class="body">
+                            <h5 class="card-title"><%= groups[i].name %></h5>
+                        </div>
                     </a>
                 </div>
             </div>
+        <% }}%>
+    </div>
+    <!-- Notes -->
+    <div class="row">
+        <h3>Notes</h3>
+        <% if(notes.length > 0) { for(let i = 0 ; i<notes.length ; i++){ %>
+            <% if(notes[i].group == null) {%>
+                <div class="col-sm-3 mb-4">
+                    <div class="card border-primary" style="min-height: 220px;">
+                        <a href="/dashboard/item/<%= notes[i]._id %>" class="card-body text-decoration-none">
+                            <h5 class="card-title"><%= notes[i].title %></h5>
+                            <p class="card-text"><%= notes[i].body %></p>
+                        </a>
+                    </div>
+                </div>
+            <% } %>
         <% }} else {%>
             <div class="row">
                 <div class="col-3">
