@@ -22,6 +22,11 @@ const NoteSchema = new Schema({
     updatedDate: {
         type: Date,
         default: Date.now()
+    },
+    group: {
+        type: Schema.ObjectId,
+        ref: 'Group',
+        default: null
     }
 });
 
