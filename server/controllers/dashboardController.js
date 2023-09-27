@@ -163,3 +163,57 @@ exports.dashboardAddGroup = async (req, res) => {
         console.log(error);
     }
 }
+
+
+// get specific group
+exports.dashboardViewGroup = async (req, res) => {
+    try {
+        const group = await Group.findById({ _id: req.params.id })
+        .where({user: req.user.id}).lean();
+        const notes = await Note.find({ group: null}).where({user: req.user.id}).lean();
+        const availableNotes = await Note.find({group: req.params.id}).where({user: req.user.id} ).lean();
+        if(group){
+            res.render('dashboard/view-groups', {
+                groupID: req.params.id, 
+                group, 
+                availableNotes,
+                notes,
+                layout: '../views/layouts/dashboard'
+            });
+        } 
+        else{
+            res.send("Something went wrong");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// update group
+exports.dashboardUpdateGroup = async (req, res) => {
+    try {
+        await Group.findOneAndUpdate(
+            {_id: req.params.id},
+            {name: req.body.name}
+            ).where( { user: req.user.id});
+
+            res.redirect('/dashboard');
+            console.log(req.body.name);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// add notes to group
+exports.dashboardAddToGroup = async (req, res) => {
+    try {
+        const { noteId } = req.body; // Get the note ID from the form
+
+        // Update the note's group field with the group ID (req.params.id)
+        await Note.findByIdAndUpdate(noteId, { group: req.params.id });
+
+        res.redirect('/dashboard/group/' + req.params.id);
+    } catch (error) {
+        console.log(error);
+    }
+}

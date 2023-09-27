@@ -14,5 +14,8 @@ router.post("/dashboard/search", checkLogIn, dashboardController.dashboardSearch
 router.get("/dashboard/search", checkLogIn, dashboardController.dashboardSearch);
 router.get("/dashboard/createGroup", checkLogIn, dashboardController.dashboardCreateGroup);
 router.post("/dashboard/createGroup", checkLogIn, dashboardController.dashboardAddGroup);
+router.get("/dashboard/group/:id", checkLogIn, dashboardController.dashboardViewGroup);
+router.put("/dashboard/group/:id", checkLogIn, dashboardController.dashboardUpdateGroup);
+router.put("/dashboard/add-to-group/:id", checkLogIn, dashboardController.dashboardAddToGroup);
 
 module.exports = router;
