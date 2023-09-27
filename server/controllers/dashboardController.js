@@ -207,10 +207,25 @@ exports.dashboardUpdateGroup = async (req, res) => {
 // add notes to group
 exports.dashboardAddToGroup = async (req, res) => {
     try {
-        const { noteId } = req.body; // Get the note ID from the form
+        const noteId = req.body.addNoteId; // Get the note ID from the form
 
         // Update the note's group field with the group ID (req.params.id)
         await Note.findByIdAndUpdate(noteId, { group: req.params.id });
+
+        res.redirect('/dashboard/group/' + req.params.id);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+// remove notes from group
+exports.dashboardRemoveFromGroup = async (req, res) => {
+    try {
+        const noteId = req.body.delNoteId; // Get the note ID from the form
+
+        // Update the note's group field with the group ID (req.params.id)
+        await Note.findByIdAndUpdate(noteId, { group: null });
 
         res.redirect('/dashboard/group/' + req.params.id);
     } catch (error) {

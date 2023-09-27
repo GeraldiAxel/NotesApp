@@ -17,5 +17,6 @@ router.post("/dashboard/createGroup", checkLogIn, dashboardController.dashboardA
 router.get("/dashboard/group/:id", checkLogIn, dashboardController.dashboardViewGroup);
 router.put("/dashboard/group/:id", checkLogIn, dashboardController.dashboardUpdateGroup);
 router.put("/dashboard/add-to-group/:id", checkLogIn, dashboardController.dashboardAddToGroup);
+router.put("/dashboard/remove-from-group/:id", checkLogIn, dashboardController.dashboardRemoveFromGroup);
 
 module.exports = router;

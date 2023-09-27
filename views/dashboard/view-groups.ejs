@@ -23,7 +23,7 @@
     </form>
 </div>
 <div class="container-fluid container-fluid-custom mb-5">
-    <h1 class="h3">Available Notes</h3>
+    <h1 class="h3">Notes in Folder</h3>
         <div class="row">
             <% if(availableNotes.length > 0) { for(let i = 0 ; i<availableNotes.length ; i++){ %>
                 <div class="col-sm-3 mb-4">
@@ -32,6 +32,10 @@
                             <h5 class="card-title"><%= availableNotes[i].title %></h5>
                             <p class="card-text"><%= availableNotes[i].body %></p>
                         </a>
+                        <form action="/dashboard/remove-from-group/<%= groupID %>?_method=PUT" method="POST" class="position-relative">
+                            <input type="hidden" name="delNoteId" value="<%= availableNotes[i]._id %>">
+                            <button class="btn btn-danger mx-3 my-3" type="submit">Remove from Group</button>
+                        </form>
                     </div>
                 </div>
                 <% }}%>
@@ -49,13 +53,24 @@
                                 <p class="card-text"><%= notes[i].body %></p>
                             </a>
                             <form action="/dashboard/add-to-group/<%= groupID %>?_method=PUT" method="POST" class="position-relative">
-                                <input type="hidden" name="noteId" value="<%= notes[i]._id %>">
+                                <input type="hidden" name="addNoteId" value="<%= notes[i]._id %>">
                                 <button class="btn btn-success mx-3 my-3" type="submit">Add to Group</button>
                             </form>
                         </div>
                     </div>
                 <% } %>
-            <% }}%>
+            <% }} else {%>
+                <div class="row">
+                    <div class="col mt-md-4">
+                        <h2>There are no notes available...</h2>
+                        <h4>
+                            Let's add more notes! <br> <br>
+                            <a href="/dashboard/create">Create a note!</a>
+                        </h4>
+                    </div>
+                </div>
+                
+            <% } %>
         </div>
 </div>
 
